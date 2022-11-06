@@ -4,20 +4,30 @@ import (
 	"testing"
 )
 
-var dummy byte
+var bookp *Book
 
 func BenchmarkBookGetByValue(b *testing.B) {
-	var book Book
 	for i := 0; i < b.N; i++ {
-		book = GetBookByValue()
+		book := GetBookByValue()
+		_ = book
 	}
-	dummy = book.Text[text_max-1]
 }
 
 func BenchmarkBookGetByPointer(b *testing.B) {
-	var book *Book
 	for i := 0; i < b.N; i++ {
-		book = GetBookByPointer()
+		bookp = GetBookByPointer()
 	}
-	dummy = book.Text[text_max-1]
+}
+
+func BenchmarkBookGetByValueNoInline(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		book := GetBookByValueNoInline()
+		_ = book
+	}
+}
+
+func BenchmarkBookGetByPointerNoInline(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		bookp = GetBookByPointerNoInline()
+	}
 }

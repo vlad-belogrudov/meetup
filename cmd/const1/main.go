@@ -1,7 +1,10 @@
 package main
 
-const a = 10
+import "fmt"
+
+const a int = 10
 
 func main() {
-	b := &a
+	b := a
+	fmt.Println(b)
 }

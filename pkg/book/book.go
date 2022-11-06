@@ -1,18 +1,37 @@
 package book
 
-const text_max = 20_000_000
+const text_max = 1000
 
 type Book struct {
-	Name string
 	Text [text_max]byte
 }
 
-func ReadBookByValue(book Book) {
-	_ = book.Text[text_max-1]
+//go:noinline
+func ReadBookByValueNoInline(book Book, n int) byte {
+	return book.Text[n]
 }
 
-func ReadBookByPointer(book *Book) {
-	_ = book.Text[text_max-1]
+//go:noinline
+func ReadBookByPointerNoInline(book *Book, n int) byte {
+	return book.Text[n]
+}
+
+//go:noinline
+func GetBookByValueNoInline() Book {
+	return Book{}
+}
+
+//go:noinline
+func GetBookByPointerNoInline() *Book {
+	return new(Book)
+}
+
+func ReadBookByValue(book Book, n int) byte {
+	return book.Text[n]
+}
+
+func ReadBookByPointer(book *Book, n int) byte {
+	return book.Text[n]
 }
 
 func GetBookByValue() Book {
